@@ -1,5 +1,7 @@
 apply plugin: 'scala'
 
+defaultTasks 'build'
+
 repositories {
     mavenCentral()
 }
@@ -8,5 +10,14 @@ dependencies {
     compile 'org.scala-lang:scala-library:2.11.8'
 
     testCompile 'org.scalatest:scalatest_2.11:2.2.6'
+    testRuntime 'org.pegdown:pegdown:1.1.0'
 }
+
+task spec(dependsOn: ['testClasses'], type: JavaExec) {
+    main = 'org.scalatest.tools.Runner'
+    args = ['-R', 'build/classes/test', '-o', '-u', 'build/test-results/scala', '-h', 'build/reports/tests-scala']
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+test.dependsOn spec
 
