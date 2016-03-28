@@ -6,7 +6,7 @@ An implementation of the Algorithm5 fuzzy clustering algorithm in Scala.
 ## Examples of Previous Uses of Algorithm5
 The original implementation was in C and was used for chemical clustering to assist in the intelligent generation of assay plates.  This relied upon the Daylight libraries for the fingerprint (feature set) generation.  The clustering and distance calculations were performed on Silicon Graphics workstations.
 
-A subsequent implementation was also created in C and was used for the detection of undesired student collaboration on specific programming assignments.  The "distance" was based upon multiple calculations of longest common subsets of lines of canonicalized C code (using lex and yacc).  The clustering and distance calculations were performed on Sun workstations.
+A subsequent implementation was also created in C and was used for the detection of undesired student collaboration on specific programming assignments (with class sizes of upwards of 400 students).  The "distance" was based upon multiple calculations of longest common subsets of lines of canonicalized C code (using lex and yacc).  The clustering and distance calculations were performed on Sun workstations.
 
 ## References
 #### Original Paper
