@@ -18,13 +18,24 @@ import org.scalatest._
  * limitations under the License.
  */
 class JPClusteringSpec extends FlatSpec with Matchers {
+  def singleClusterDataSet: Set[Item] = Set(new Item {})
+
   "JPClustering" should "create no clusters when there are no items to cluster" in {
     def target = new JPClustering
+
     target.cluster(Set()).size should be (0)
   }
 
   it should "create no clusters when provided a null set of items to cluster" in {
     def target = new JPClustering
+
     target.cluster(null).size should be (0)
+  }
+
+  it should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
+    def target = new JPClustering
+
+    def clusters = target.cluster(singleClusterDataSet)
+    clusters.size should be (1)
   }
 }

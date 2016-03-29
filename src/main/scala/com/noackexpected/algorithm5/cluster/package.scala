@@ -17,4 +17,5 @@ package com.noackexpected.algorithm5
  */
 package object cluster {
   type DataSet = Set[Item]
+  type Cluster = Set[Item]
 }

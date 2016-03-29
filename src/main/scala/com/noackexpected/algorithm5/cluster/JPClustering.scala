@@ -17,6 +17,7 @@ package com.noackexpected.algorithm5.cluster
  */
 class JPClustering {
   def cluster(dataSet: DataSet): Set[Cluster] = {
-    Set()
+    if (dataSet == null || dataSet.isEmpty) Set()
+    else Set(Set())
   }
 }
