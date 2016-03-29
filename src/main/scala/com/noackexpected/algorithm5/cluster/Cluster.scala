@@ -15,8 +15,6 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class JPClustering {
-  def cluster(dataSet: DataSet): Set[Cluster] = {
-    Set()
-  }
+trait Cluster {
+
 }

@@ -1,4 +1,4 @@
-package com.noackexpected.algorithm5.cluster
+package com.noackexpected.algorithm5
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,8 +15,6 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class JPClustering {
-  def cluster(dataSet: DataSet): Set[Cluster] = {
-    Set()
-  }
+package object cluster {
+  type DataSet = Set[Item]
 }
