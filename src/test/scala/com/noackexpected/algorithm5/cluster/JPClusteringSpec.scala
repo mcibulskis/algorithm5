@@ -57,15 +57,37 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     cluster should contain("A")
   }
 
-  it should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
+  it should "create singleton clusters for each singleton item when there are multiple singletons" in {
     def target = new JPClustering
+    def singletons = new InMemoryNeighborInformation(Map(("A", List("C")), ("B", List("D"))))
+
+    def clusters = target.cluster(singletons)
+    clusters.size should be (2)
+  }
+
+  it should "create singleton clusters containing each singleton when there are multiple singletons" in {
+    def target = new JPClustering
+    def singletons = new InMemoryNeighborInformation(Map(("A", List("C")), ("B", List("D"))))
+
+    def clusters = target.cluster(singletons)
+    clusters.foreach(cluster => {
+      cluster.size should be (1)
+    })
+    def singletonItems = clusters.foldLeft(Set[ItemID]())((aggregate, cluster) => {aggregate ++ Set(cluster.head)})
+    singletonItems.size should be (2)
+    singletonItems should contain ("A")
+    singletonItems should contain ("B")
+  }
+
+  ignore should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
+    def target = new JPClustering(4, 3)
 
     def clusters = target.cluster(singleClusterNeighborInfo)
     clusters.size should be (1)
   }
 
-  it should "create a cluster containing all items when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
-    def target = new JPClustering
+  ignore should "create a cluster containing all items when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
+    def target = new JPClustering(4, 3)
 
     def clusters = target.cluster(singleClusterNeighborInfo)
     def cluster = clusters.head

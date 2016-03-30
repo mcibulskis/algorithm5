@@ -19,7 +19,7 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
 
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
     if (neighborInformation== null || neighborInformation.isEmpty) Set()
-    else Set(neighborInformation.items)
+    else neighborInformation.items.map(itemID => Set(itemID))
   }
 
   def isCloseNeighbors(item1: (ItemID, NeighborList), item2: (ItemID, NeighborList)): Boolean = {
