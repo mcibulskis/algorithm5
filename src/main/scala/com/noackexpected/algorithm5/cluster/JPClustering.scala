@@ -22,6 +22,6 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
   }
 
   def isCloseNeighbors(item1: (ItemID, NeighborList), item2: (ItemID, NeighborList)): Boolean = {
-    true
+    item2._2.contains(item1._1)
   }
 }
