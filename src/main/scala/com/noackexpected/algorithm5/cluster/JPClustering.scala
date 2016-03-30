@@ -27,6 +27,6 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
     def neighborsToExamine1 = item1._2.slice(0, numNearestNeighborsToExamine)
     def neighborsToExamine2 = item2._2.slice(0, numNearestNeighborsToExamine)
 
-    item2._2.contains(item1._1) && item1._2.contains(item2._1) && (neighborsToExamine1.intersect(neighborsToExamine2).size >= (numRequiredCommonNeighbors - 1))
+    item2._2.contains(item1._1) && neighborsToExamine1.contains(itemID2) && (neighborsToExamine1.intersect(neighborsToExamine2).size >= (numRequiredCommonNeighbors - 1))
   }
 }
