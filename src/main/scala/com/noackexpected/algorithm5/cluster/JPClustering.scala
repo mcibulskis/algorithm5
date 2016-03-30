@@ -16,6 +16,7 @@ package com.noackexpected.algorithm5.cluster
  * limitations under the License.
  */
 class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeighbors: Int = 15) {
+
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
     if (neighborInformation== null || neighborInformation.isEmpty) Set()
     else Set(neighborInformation.items)

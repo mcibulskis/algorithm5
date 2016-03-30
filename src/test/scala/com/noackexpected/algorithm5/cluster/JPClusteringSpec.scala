@@ -39,6 +39,24 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     target.cluster(null).size should be (0)
   }
 
+  it should "create a singleton cluster when there is a single item" in {
+    def target = new JPClustering
+    def singleton = new InMemoryNeighborInformation(Map(("A", List("B"))))
+
+    def clusters = target.cluster(singleton)
+    clusters.size should be(1)
+  }
+
+  it should "create a singleton cluster containing the item when there is a single item" in {
+    def target = new JPClustering
+    def singleton = new InMemoryNeighborInformation(Map(("A", List("B"))))
+
+    def clusters = target.cluster(singleton)
+    def cluster = clusters.head
+    cluster.size should be (1)
+    cluster should contain("A")
+  }
+
   it should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
     def target = new JPClustering
 
