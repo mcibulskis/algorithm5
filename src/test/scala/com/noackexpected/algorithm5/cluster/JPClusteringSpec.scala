@@ -96,4 +96,20 @@ class JPClusteringSpec extends FlatSpec with Matchers {
 
     target.isCloseNeighbors(item1, item2) should be (false)
   }
+
+  it should "return true if the minimum number of common neighbors is met" in {
+    def target = new JPClustering(3, 2)
+    def item1 = ("A", List("B", "D", "C"))
+    def item2 = ("B", List("A", "E", "C"))
+
+    target.isCloseNeighbors(item1, item2) should be (true)
+  }
+
+  it should "return false if the minimum number of common neighbors is not met within the window of neighbors to examine" in {
+    def target = new JPClustering(3, 2)
+    def item1 = ("A", List("B", "E", "D", "C"))
+    def item2 = ("B", List("A", "G", "F", "C"))
+
+    target.isCloseNeighbors(item1, item2) should be (false)
+  }
 }
