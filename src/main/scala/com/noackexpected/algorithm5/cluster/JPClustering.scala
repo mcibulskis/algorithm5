@@ -15,9 +15,13 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class JPClustering {
+class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeighbors: Int = 15) {
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
     if (neighborInformation== null || neighborInformation.isEmpty) Set()
     else Set(neighborInformation.items)
+  }
+
+  def isCloseNeighbors(item1: (ItemID, NeighborList), item2: (ItemID, NeighborList)): Boolean = {
+    true
   }
 }

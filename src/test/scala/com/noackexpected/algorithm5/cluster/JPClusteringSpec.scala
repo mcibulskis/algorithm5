@@ -20,11 +20,14 @@ import org.scalatest._
 class JPClusteringSpec extends FlatSpec with Matchers {
   def singleClusterNeighborInfo = new InMemoryNeighborInformation(
     Map(
-      ("A", List("B")),
-      ("B", List("A"))
+      ("A", List("B", "C", "D", "E")),
+      ("B", List("A", "C", "D", "E")),
+      ("C", List("A", "B", "D", "E")),
+      ("D", List("A", "B", "C", "E")),
+      ("E", List("A", "B", "C", "D"))
     ))
 
-  "JPClustering" should "create no clusters when there is no neighbor information" in {
+  "JPClustering.cluster()" should "create no clusters when there is no neighbor information" in {
     def target = new JPClustering
 
     target.cluster(new InMemoryNeighborInformation(Map())).size should be (0)
@@ -48,7 +51,25 @@ class JPClusteringSpec extends FlatSpec with Matchers {
 
     def clusters = target.cluster(singleClusterNeighborInfo)
     def cluster = clusters.head
-    cluster.size should be(singleClusterNeighborInfo.size)
+    cluster.size should be(5)
     singleClusterNeighborInfo.items.foreach(itemID => cluster should contain (itemID))
+  }
+
+  ignore should "exclude items from a cluster when the threshold of minimum number of common neighbors is not met" in {
+    def target = new JPClustering(3, 3)
+
+    def clusters = target.cluster(singleClusterNeighborInfo)
+    def cluster = clusters.head
+    cluster.size should be(4)
+    cluster should not contain("E")
+  }
+
+
+  "JPClustering.isCloseNeighbors()" should "return true when both items are in each others' neighbors lists" in {
+    def target = new JPClustering
+    def item1 = ("A", List("B"))
+    def item2 = ("B", List("A"))
+
+    target.isCloseNeighbors(item1, item2) should be (true)
   }
 }
