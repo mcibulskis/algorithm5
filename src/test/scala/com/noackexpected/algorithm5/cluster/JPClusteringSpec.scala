@@ -66,7 +66,7 @@ class JPClusteringSpec extends FlatSpec with Matchers {
 
 
   "JPClustering.isCloseNeighbors()" should "return true when both items are in each others' neighbors lists" in {
-    def target = new JPClustering
+    def target = new JPClustering(1, 1)
     def item1 = ("A", List("B"))
     def item2 = ("B", List("A"))
 
@@ -74,9 +74,25 @@ class JPClusteringSpec extends FlatSpec with Matchers {
   }
 
   it should "return false when item1 is not in item2's neighbors list" in {
-    def target = new JPClustering
+    def target = new JPClustering(1, 1)
     def item1 = ("A", List("B"))
     def item2 = ("B", List("C"))
+
+    target.isCloseNeighbors(item1, item2) should be (false)
+  }
+
+  it should "return false when item2 is not in item1's neighbors list" in {
+    def target = new JPClustering(1, 1)
+    def item1 = ("A", List("C"))
+    def item2 = ("B", List("A"))
+
+    target.isCloseNeighbors(item1, item2) should be (false)
+  }
+
+  it should "return false if the minimum number of common neighbors is not met" in {
+    def target = new JPClustering(2, 2)
+    def item1 = ("A", List("B", "C"))
+    def item2 = ("B", List("A", "D"))
 
     target.isCloseNeighbors(item1, item2) should be (false)
   }
