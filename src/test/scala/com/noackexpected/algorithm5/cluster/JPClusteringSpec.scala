@@ -18,15 +18,19 @@ import org.scalatest._
  * limitations under the License.
  */
 class JPClusteringSpec extends FlatSpec with Matchers {
-  def singleClusterDataSet: Set[Item] = Set(new Item {})
+  def singleClusterNeighborInfo = new InMemoryNeighborInformation(
+    Map(
+      ("A", List("B")),
+      ("B", List("A"))
+    ))
 
-  "JPClustering" should "create no clusters when there are no items to cluster" in {
+  "JPClustering" should "create no clusters when there is no neighbor information" in {
     def target = new JPClustering
 
-    target.cluster(Set()).size should be (0)
+    target.cluster(new InMemoryNeighborInformation(Map())).size should be (0)
   }
 
-  it should "create no clusters when provided a null set of items to cluster" in {
+  it should "create no clusters when provided a null neighbor information is provided" in {
     def target = new JPClustering
 
     target.cluster(null).size should be (0)
@@ -35,7 +39,16 @@ class JPClusteringSpec extends FlatSpec with Matchers {
   it should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
     def target = new JPClustering
 
-    def clusters = target.cluster(singleClusterDataSet)
+    def clusters = target.cluster(singleClusterNeighborInfo)
     clusters.size should be (1)
+  }
+
+  it should "create a cluster containing all items when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
+    def target = new JPClustering
+
+    def clusters = target.cluster(singleClusterNeighborInfo)
+    def cluster = clusters.head
+    cluster.size should be(singleClusterNeighborInfo.size)
+    singleClusterNeighborInfo.items.foreach(itemID => cluster should contain (itemID))
   }
 }

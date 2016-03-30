@@ -15,6 +15,10 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-trait Item {
-  def getID(): ItemID
+class InMemoryNeighborInformation(neighborLists: NeighborLists) extends NeighborInformation {
+  override def isEmpty: Boolean = neighborLists.isEmpty
+
+  override def size: Int = neighborLists.size
+
+  override def items: Set[ItemID] = neighborLists.keySet
 }

@@ -16,8 +16,8 @@ package com.noackexpected.algorithm5.cluster
  * limitations under the License.
  */
 class JPClustering {
-  def cluster(dataSet: DataSet): Set[Cluster] = {
-    if (dataSet == null || dataSet.isEmpty) Set()
-    else Set(Set())
+  def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
+    if (neighborInformation== null || neighborInformation.isEmpty) Set()
+    else Set(neighborInformation.items)
   }
 }

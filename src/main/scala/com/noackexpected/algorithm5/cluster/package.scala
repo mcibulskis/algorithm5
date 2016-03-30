@@ -16,6 +16,11 @@ package com.noackexpected.algorithm5
  * limitations under the License.
  */
 package object cluster {
+  type ItemID = String
+
   type DataSet = Set[Item]
-  type Cluster = Set[Item]
+  type Cluster = Set[ItemID]
+
+  type NeighborList = List[ItemID]
+  type NeighborLists = Map[ItemID, NeighborList]
 }

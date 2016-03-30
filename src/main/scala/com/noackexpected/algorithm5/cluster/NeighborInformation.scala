@@ -15,6 +15,8 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-trait Item {
-  def getID(): ItemID
+trait NeighborInformation {
+  def isEmpty: Boolean
+  def size: Int
+  def items: Set[ItemID]
 }
