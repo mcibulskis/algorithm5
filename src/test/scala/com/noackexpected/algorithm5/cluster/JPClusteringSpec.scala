@@ -113,10 +113,18 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     target.isCloseNeighbors(item1, item2) should be (false)
   }
 
-  it should "return false when item1 is not within the window of neighbors to examine in item2's neighbors list" in {
+  it should "return false when item2 is not within the window of neighbors to examine in item1's neighbors list" in {
     def target = new JPClustering(3, 2)
     def item1 = ("A", List("C", "E", "D", "B"))
     def item2 = ("B", List("A", "G", "C", "F"))
+
+    target.isCloseNeighbors(item1, item2) should be (false)
+  }
+
+  it should "return false when item1 is not within the window of neighbors to examine in item2's neighbors list" in {
+    def target = new JPClustering(3, 2)
+    def item1 = ("A", List("B", "E", "C", "D"))
+    def item2 = ("B", List("F", "G", "C", "A"))
 
     target.isCloseNeighbors(item1, item2) should be (false)
   }
