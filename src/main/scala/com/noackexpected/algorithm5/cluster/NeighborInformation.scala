@@ -19,4 +19,5 @@ trait NeighborInformation {
   def isEmpty: Boolean
   def size: Int
   def items: Set[ItemID]
+  def neighborsOf(itemID: ItemID): NeighborList
 }

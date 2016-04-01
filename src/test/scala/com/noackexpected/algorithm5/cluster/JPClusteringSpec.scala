@@ -20,14 +20,14 @@ import org.scalatest._
 class JPClusteringSpec extends FlatSpec with Matchers {
 
   type ClusterID = Int
-  class StubbedJPClustering(expectedClusters: Map[ItemID, ClusterID]) extends JPClustering {
+  class StubbedJPClustering(expectedClustering: Map[ItemID, ClusterID]) extends JPClustering {
     override def isCloseNeighbors(item1: (ItemID, NeighborList), item2: (ItemID, NeighborList)): Boolean = {
-      expectedClusters.get(item1._1) == expectedClusters.get(item2._1)
+      expectedClustering.get(item1._1) == expectedClustering.get(item2._1)
     }
   }
 
-  def fakeNeighborInformation(expectedClusters: Map[ItemID, ClusterID]) = {
-    new InMemoryNeighborInformation(expectedClusters.keys.foldLeft(Map[ItemID, NeighborList]())((aggregate, itemID) => {aggregate ++ Map((itemID, List("Fake", "Neighbor", "List")))}))
+  def fakeNeighborInformation(expectedClustering: Map[ItemID, ClusterID]) = {
+    new InMemoryNeighborInformation(expectedClustering.keys.foldLeft(Map[ItemID, NeighborList]())((aggregate, itemID) => {aggregate ++ Map((itemID, List("Fake", "Neighbor", "List")))}))
   }
 
   "JPClustering.cluster()" should "create no clusters when there is no neighbor information" in {
@@ -43,36 +43,36 @@ class JPClusteringSpec extends FlatSpec with Matchers {
   }
 
   it should "create a singleton cluster when there is a single item" in {
-    def expectedClusters = Map(("A", 1))
-    def target = new StubbedJPClustering(expectedClusters)
+    def expectedClustering = Map(("A", 1))
+    def target = new StubbedJPClustering(expectedClustering)
 
-    def clusters = target.cluster(fakeNeighborInformation(expectedClusters))
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
     clusters.size should be(1)
   }
 
   it should "create a singleton cluster containing the item when there is a single item" in {
-    def expectedClusters = Map(("A", 1))
-    def target = new StubbedJPClustering(expectedClusters)
+    def expectedClustering = Map(("A", 1))
+    def target = new StubbedJPClustering(expectedClustering)
 
-    def clusters = target.cluster(fakeNeighborInformation(expectedClusters))
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
     def cluster = clusters.head
     cluster.size should be (1)
     cluster should contain("A")
   }
 
   it should "create singleton clusters for each singleton item when there are multiple singletons" in {
-    def expectedClusters = Map(("A", 1), ("B", 2))
-    def target = new StubbedJPClustering(expectedClusters)
+    def expectedClustering = Map(("A", 1), ("B", 2))
+    def target = new StubbedJPClustering(expectedClustering)
 
-    def clusters = target.cluster(fakeNeighborInformation(expectedClusters))
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
     clusters.size should be (2)
   }
 
   it should "create singleton clusters containing each singleton when there are multiple singletons" in {
-    def expectedClusters = Map(("A", 1), ("B", 2))
-    def target = new StubbedJPClustering(expectedClusters)
+    def expectedClustering = Map(("A", 1), ("B", 2))
+    def target = new StubbedJPClustering(expectedClustering)
 
-    def clusters = target.cluster(fakeNeighborInformation(expectedClusters))
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
     clusters.foreach(cluster => {
       cluster.size should be (1)
     })
@@ -81,6 +81,20 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     singletonItems should contain ("A")
     singletonItems should contain ("B")
   }
+
+  it should "create a single cluster with both items if they are both in each others' neighbors list and meet the threshold of minimum number of common neighbors" in {
+    def expectedClustering = Map(("A", 1), ("B", 1))
+    def target = new StubbedJPClustering(expectedClustering)
+
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
+    clusters.size should be (1)
+    def cluster = clusters.head
+    cluster.size should be (2)
+    cluster should contain ("A")
+    cluster should contain ("B")
+  }
+
+  // need a chaining test
 
 //  ignore should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
 //    def target = new JPClustering(4, 3)

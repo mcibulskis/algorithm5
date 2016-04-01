@@ -18,8 +18,26 @@ package com.noackexpected.algorithm5.cluster
 class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeighbors: Int = 15) {
 
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
-    if (neighborInformation== null || neighborInformation.isEmpty) Set()
-    else neighborInformation.items.map(itemID => Set(itemID))
+    if (neighborInformation == null) Set()
+    else rCluster(neighborInformation, neighborInformation.items, Set[Cluster]())
+  }
+
+  private def rCluster(neighborInformation: NeighborInformation, itemsToProcess: Set[ItemID], currentClusters: Set[Cluster]): Set[Cluster] = {
+    if (itemsToProcess.isEmpty) currentClusters
+    else rCluster(neighborInformation, itemsToProcess.tail, updateClusters(currentClusters, itemsToProcess.head, neighborInformation))
+  }
+
+  private def updateClusters(currentClusters: Set[Cluster], currentItem: ItemID, neighborInformation: NeighborInformation): Set[Cluster] = {
+    Set(Set(currentItem)) ++ currentClusters.map(cluster => {
+      if (belongsToCluster(currentItem, cluster, neighborInformation)) cluster ++ Set(currentItem)
+      else cluster
+    })
+  }
+
+  private def belongsToCluster(item: ItemID, cluster: Cluster, neighborInformation: NeighborInformation): Boolean = {
+    cluster.foldLeft(false)((aggregate, itemToCompare) => {
+      aggregate || isCloseNeighbors((item, neighborInformation.neighborsOf(item)), (itemToCompare, neighborInformation.neighborsOf(itemToCompare)))
+    })
   }
 
   def isCloseNeighbors(item1: (ItemID, NeighborList), item2: (ItemID, NeighborList)): Boolean = {

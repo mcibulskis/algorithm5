@@ -21,4 +21,6 @@ class InMemoryNeighborInformation(neighborLists: NeighborLists) extends Neighbor
   override def size: Int = neighborLists.size
 
   override def items: Set[ItemID] = neighborLists.keySet
+
+  override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
 }
