@@ -21,4 +21,5 @@ http://www.daylight.com/meetings/mug96/doman/Doman.Overheads.html
 > Jarvis, R. A., & Patrick, E. A. (1973). Clustering using a similarity measure based on shared near neighbors. Computers, IEEE Transactions on, 100(11), 1025-1034.
 
 PDF Available from: [http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1672233&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1672233](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1672233&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1672233)
+or from: [http://www.computer.org/csdl/trans/tc/1973/11/01672233.pdf](http://www.computer.org/csdl/trans/tc/1973/11/01672233.pdf)
 
