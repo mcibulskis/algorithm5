@@ -28,10 +28,11 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
   }
 
   private def updateClusters(currentClusters: Set[Cluster], currentItem: ItemID, neighborInformation: NeighborInformation): Set[Cluster] = {
-    Set(Set(currentItem)) ++ currentClusters.map(cluster => {
-      if (belongsToCluster(currentItem, cluster, neighborInformation)) cluster ++ Set(currentItem)
-      else cluster
-    })
+    def singleton = Set(currentItem)
+    def belongsToClusters = currentClusters.filter(cluster => belongsToCluster(currentItem, cluster, neighborInformation))
+    def doesNotBelongToClusters = currentClusters.diff(belongsToClusters)
+    def mergedCluster = belongsToClusters.foldLeft(singleton)((aggregate, cluster) => aggregate ++ cluster)
+    Set(mergedCluster) ++ doesNotBelongToClusters
   }
 
   private def belongsToCluster(item: ItemID, cluster: Cluster, neighborInformation: NeighborInformation): Boolean = {
