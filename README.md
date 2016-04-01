@@ -16,3 +16,9 @@ PDF Available from: [http://pubs.acs.org/doi/abs/10.1021/ci960361r](http://pubs.
 
 #### Daylight User Group Meeting Presentation Slides
 http://www.daylight.com/meetings/mug96/doman/Doman.Overheads.html
+
+#### The Jarvis Patrick Clustering Algorithm
+> Jarvis, R. A., & Patrick, E. A. (1973). Clustering using a similarity measure based on shared near neighbors. Computers, IEEE Transactions on, 100(11), 1025-1034.
+
+PDF Available from: [http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1672233&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1672233](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1672233&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1672233)
+
