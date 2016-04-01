@@ -94,7 +94,52 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     cluster should contain ("B")
   }
 
-  // need a chaining test
+  it should "be able to create multiple multi-item clusters" in {
+    def expectedClustering = Map(("A", 1), ("B", 2), ("C", 1), ("D", 3), ("E", 3), ("F", 1), ("G", 3), ("H", 2), ("J", 4))
+    def target = new StubbedJPClustering(expectedClustering)
+
+    def clusters = target.cluster(fakeNeighborInformation(expectedClustering))
+    clusters.size should be (4)
+    clusters.foreach(cluster => {
+      if (cluster.contains("A")) {
+        cluster.size should be (3)
+        cluster should contain ("C")
+        cluster should contain ("F")
+      } else if (cluster.contains("B")) {
+        cluster.size should be (2)
+        cluster should contain ("H")
+      } else if (cluster.contains("D")) {
+        cluster.size should be(3)
+        cluster should contain("E")
+        cluster should contain("G")
+      } else if (cluster.contains("J")) {
+        cluster.size should be (1)
+      } else {
+        fail(s"Unexpected cluster configuration: ${cluster}")
+      }
+    })
+  }
+
+  it should "create chains where some items in a cluster may appear to be unrelated to others in the cluster" in {
+    def target = new JPClustering(3, 2)
+    def neighborList = new InMemoryNeighborInformation(Map(
+      ("A", List("B", "C", "G", "H")),
+      ("B", List("A", "C", "D", "J")),
+      ("C", List("B", "D", "K", "L")),
+      ("D", List("C", "K", "M", "N")),
+      ("K", List("D", "M", "P", "Q"))  // K appears to be unrelated to A, but should chain into the same cluster
+    ))
+
+    def clusters = target.cluster(neighborList)
+    clusters.size should be (1)
+    def cluster = clusters.head
+    cluster.size should be (5)
+    cluster should contain ("A")
+    cluster should contain ("B")
+    cluster should contain ("C")
+    cluster should contain ("D")
+    cluster should contain ("K")
+  }
 
 
 
