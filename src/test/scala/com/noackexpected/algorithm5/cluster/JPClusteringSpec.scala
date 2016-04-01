@@ -96,30 +96,6 @@ class JPClusteringSpec extends FlatSpec with Matchers {
 
   // need a chaining test
 
-//  ignore should "create a single cluster when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
-//    def target = new JPClustering(4, 3)
-//
-//    def clusters = target.cluster(singleClusterNeighborInfo)
-//    clusters.size should be (1)
-//  }
-//
-//  ignore should "create a cluster containing all items when all items are each others' neighbors and are within the threshold of minimum number of common neighbors" in {
-//    def target = new JPClustering(4, 3)
-//
-//    def clusters = target.cluster(singleClusterNeighborInfo)
-//    def cluster = clusters.head
-//    cluster.size should be(5)
-//    singleClusterNeighborInfo.items.foreach(itemID => cluster should contain (itemID))
-//  }
-//
-//  ignore should "exclude items from a cluster when the threshold of minimum number of common neighbors is not met" in {
-//    def target = new JPClustering(3, 3)
-//
-//    def clusters = target.cluster(singleClusterNeighborInfo)
-//    def cluster = clusters.head
-//    cluster.size should be(4)
-//    cluster should not contain("E")
-//  }
 
 
   "JPClustering.isCloseNeighbors()" should "return true when both items are in each others' neighbors lists" in {
