@@ -55,6 +55,6 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
   }
 
   private def itemsHaveSufficientNeighborsInCommon(neighborsToExamine1: NeighborList, neighborsToExamine2: NeighborList, threshold: Int): Boolean = {
-    (neighborsToExamine1.intersect(neighborsToExamine2).size >= threshold)
+    neighborsToExamine1.intersect(neighborsToExamine2).size >= threshold
   }
 }
