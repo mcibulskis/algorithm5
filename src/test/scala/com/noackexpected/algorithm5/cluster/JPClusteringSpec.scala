@@ -30,7 +30,7 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     new InMemoryNeighborInformation(expectedClustering.keys.foldLeft(Map[ItemID, NeighborList]())((aggregate, itemID) => {aggregate ++ Map((itemID, List("Fake", "Neighbor", "List")))}))
   }
 
-  "JPClustering.cluster()" should "create no clusters when there is no neighbor information" in {
+  "cluster()" should "create no clusters when there is no neighbor information" in {
     def target = new JPClustering
 
     target.cluster(new InMemoryNeighborInformation(Map())).size should be (0)
@@ -143,7 +143,7 @@ class JPClusteringSpec extends FlatSpec with Matchers {
 
 
 
-  "JPClustering.isCloseNeighbors()" should "return true when both items are in each others' neighbors lists" in {
+  "isCloseNeighbors()" should "return true when both items are in each others' neighbors lists" in {
     def target = new JPClustering(1, 1)
     def item1 = ("A", List("B"))
     def item2 = ("B", List("A"))

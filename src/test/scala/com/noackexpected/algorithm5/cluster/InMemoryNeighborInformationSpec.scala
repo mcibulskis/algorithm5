@@ -1,5 +1,7 @@
 package com.noackexpected.algorithm5.cluster
 
+import org.scalatest.{Matchers, FlatSpec}
+
 /**
  * Copyright 2016 Michael J. Cibulskis
  *
@@ -15,13 +17,23 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class InMemoryNeighborInformation(neighborLists: NeighborLists) extends NeighborInformation {
+class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
 
-  override def isEmpty: Boolean = (neighborLists == null) || neighborLists.isEmpty
+  "isEmpty()" should "return true if the neighbors lists is empty" in {
+    def target = new InMemoryNeighborInformation(Map())
 
-  override def size: Int = neighborLists.size
+    target.isEmpty should be (true)
+  }
 
-  override def items: Set[ItemID] = neighborLists.keySet
+  it should "return false if the neighbors lists is not empty" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B"))))
 
-  override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
+    target.isEmpty should be (false)
+  }
+
+  it should "return true if the neighbors lists is null" in {
+    def target = new InMemoryNeighborInformation(null)
+
+    target.isEmpty should be (true)
+  }
 }
