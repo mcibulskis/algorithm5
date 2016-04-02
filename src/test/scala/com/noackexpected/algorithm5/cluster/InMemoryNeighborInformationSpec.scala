@@ -36,4 +36,23 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
 
     target.isEmpty should be (true)
   }
+
+
+  "size" should "return 0 if there are no items for which there are neighbors lists" in {
+    def target = new InMemoryNeighborInformation(Map())
+
+    target.size should be (0)
+  }
+
+  it should "return 0 if the neighbor lists is null" in {
+    def target = new InMemoryNeighborInformation(null)
+
+    target.size should be (0)
+  }
+
+  it should "return the number of items for which there are neighbors lists" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B")), ("B", List("A"))))
+
+    target.size should be (2)
+  }
 }

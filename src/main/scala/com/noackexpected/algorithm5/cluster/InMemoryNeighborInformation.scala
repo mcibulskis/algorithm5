@@ -19,7 +19,7 @@ class InMemoryNeighborInformation(neighborLists: NeighborLists) extends Neighbor
 
   override def isEmpty: Boolean = (neighborLists == null) || neighborLists.isEmpty
 
-  override def size: Int = neighborLists.size
+  override def size: Int = if (neighborLists == null) 0 else neighborLists.size
 
   override def items: Set[ItemID] = neighborLists.keySet
 
