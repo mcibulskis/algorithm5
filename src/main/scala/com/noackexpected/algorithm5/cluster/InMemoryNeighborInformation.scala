@@ -23,5 +23,5 @@ class InMemoryNeighborInformation(neighborLists: NeighborLists) extends Neighbor
 
   override def items: Set[ItemID] = if (neighborLists == null) Set() else neighborLists.keySet
 
-  override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
+  override def neighborsOf(itemID: ItemID): NeighborList = if (neighborLists == null) List() else neighborLists.getOrElse(itemID, List())
 }

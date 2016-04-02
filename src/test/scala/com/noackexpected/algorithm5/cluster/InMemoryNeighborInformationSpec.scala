@@ -19,7 +19,7 @@ import org.scalatest.{Matchers, FlatSpec}
  */
 class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
 
-  "isEmpty()" should "return true if the neighbors lists is empty" in {
+  "isEmpty" should "return true if the neighbors lists is empty" in {
     def target = new InMemoryNeighborInformation(Map())
 
     target.isEmpty should be (true)
@@ -72,5 +72,29 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
     def target = new InMemoryNeighborInformation(Map(("A", List("B")), ("B", List("A"))))
 
     target.items should be (Set("A", "B"))
+  }
+
+  "neighborsOf()" should "return an empty list if no neighbor information is present for the specified item" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B"))))
+
+    target.neighborsOf("NotPresent") should be (List())
+  }
+
+  it should "return an empty list if the neighbors lists is null" in {
+    def target = new InMemoryNeighborInformation(null)
+
+    target.neighborsOf("AnyItem") should be (List())
+  }
+
+  it should "return an empty list if the item ID specified is null" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B"))))
+
+    target.neighborsOf(null) should be (List())
+  }
+
+  it should "return the neighbors of the specified item ID" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B", "C")), ("B", List("A", "C"))))
+
+    target.neighborsOf("B") should be (List("A", "C"))
   }
 }
