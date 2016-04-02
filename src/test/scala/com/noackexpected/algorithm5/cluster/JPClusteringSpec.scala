@@ -36,12 +36,6 @@ class JPClusteringSpec extends FlatSpec with Matchers {
     target.cluster(new InMemoryNeighborInformation(Map())).size should be (0)
   }
 
-  it should "create no clusters when provided a null neighbor information is provided" in {
-    def target = new JPClustering
-
-    target.cluster(null).size should be (0)
-  }
-
   it should "create a singleton cluster when there is a single item" in {
     def expectedClustering = Map(("A", 1))
     def target = new StubbedJPClustering(expectedClustering)

@@ -18,8 +18,7 @@ package com.noackexpected.algorithm5.cluster
 class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeighbors: Int = 15) {
 
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
-    if (neighborInformation == null) Set()
-    else rCluster(neighborInformation, neighborInformation.items, Set[Cluster]())
+    rCluster(neighborInformation, neighborInformation.items, Set[Cluster]())
   }
 
   private def rCluster(neighborInformation: NeighborInformation, itemsToProcess: Set[ItemID], currentClusters: Set[Cluster]): Set[Cluster] = {

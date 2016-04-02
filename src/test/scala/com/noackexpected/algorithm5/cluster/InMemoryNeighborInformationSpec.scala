@@ -31,21 +31,9 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
     target.isEmpty should be (false)
   }
 
-  it should "return true if the neighbors lists is null" in {
-    def target = new InMemoryNeighborInformation(null)
-
-    target.isEmpty should be (true)
-  }
-
 
   "size" should "return 0 if there are no items for which there are neighbors lists" in {
     def target = new InMemoryNeighborInformation(Map())
-
-    target.size should be (0)
-  }
-
-  it should "return 0 if the neighbor lists is null" in {
-    def target = new InMemoryNeighborInformation(null)
 
     target.size should be (0)
   }
@@ -56,14 +44,9 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
     target.size should be (2)
   }
 
+
   "items" should "return an empty set if there are no items for which there are neighbors lists" in {
     def target = new InMemoryNeighborInformation(Map())
-
-    target.items should be (Set())
-  }
-
-  it should "return an empty set if the neighbors lists is null" in {
-    def target = new InMemoryNeighborInformation(null)
 
     target.items should be (Set())
   }
@@ -74,22 +57,11 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
     target.items should be (Set("A", "B"))
   }
 
+
   "neighborsOf()" should "return an empty list if no neighbor information is present for the specified item" in {
     def target = new InMemoryNeighborInformation(Map(("A", List("B"))))
 
     target.neighborsOf("NotPresent") should be (List())
-  }
-
-  it should "return an empty list if the neighbors lists is null" in {
-    def target = new InMemoryNeighborInformation(null)
-
-    target.neighborsOf("AnyItem") should be (List())
-  }
-
-  it should "return an empty list if the item ID specified is null" in {
-    def target = new InMemoryNeighborInformation(Map(("A", List("B"))))
-
-    target.neighborsOf(null) should be (List())
   }
 
   it should "return the neighbors of the specified item ID" in {

@@ -17,11 +17,11 @@ package com.noackexpected.algorithm5.cluster
  */
 class InMemoryNeighborInformation(neighborLists: NeighborLists) extends NeighborInformation {
 
-  override def isEmpty: Boolean = (neighborLists == null) || neighborLists.isEmpty
+  override def isEmpty: Boolean = neighborLists.isEmpty
 
-  override def size: Int = if (neighborLists == null) 0 else neighborLists.size
+  override def size: Int = neighborLists.size
 
-  override def items: Set[ItemID] = if (neighborLists == null) Set() else neighborLists.keySet
+  override def items: Set[ItemID] = neighborLists.keySet
 
-  override def neighborsOf(itemID: ItemID): NeighborList = if (neighborLists == null) List() else neighborLists.getOrElse(itemID, List())
+  override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
 }
