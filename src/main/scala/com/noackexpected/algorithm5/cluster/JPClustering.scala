@@ -36,8 +36,9 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
   }
 
   private def belongsToCluster(item: ItemID, cluster: Cluster, neighborInformation: NeighborInformation): Boolean = {
+    def itemWithNeighborInfo = (item, neighborInformation.neighborsOf(item))
     cluster.foldLeft(false)((aggregate, itemToCompare) => {
-      aggregate || isCloseNeighbors((item, neighborInformation.neighborsOf(item)), (itemToCompare, neighborInformation.neighborsOf(itemToCompare)))
+      aggregate || isCloseNeighbors(itemWithNeighborInfo, (itemToCompare, neighborInformation.neighborsOf(itemToCompare)))
     })
   }
 
