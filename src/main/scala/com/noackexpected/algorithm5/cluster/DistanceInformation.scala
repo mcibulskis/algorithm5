@@ -1,4 +1,4 @@
-package com.noackexpected.algorithm5
+package com.noackexpected.algorithm5.cluster
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,14 +15,6 @@ package com.noackexpected.algorithm5
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package object cluster {
-  type ItemID = String
-
-  type DataSet = Set[Item]
-  type Cluster = Set[ItemID]
-
-  type NeighborList = List[ItemID]
-  type NeighborLists = Map[ItemID, NeighborList]
-
-  type Distance = (ItemID, ItemID, Float)
+trait DistanceInformation {
+  def get(fromItem: ItemID, toItem: ItemID): Double
 }

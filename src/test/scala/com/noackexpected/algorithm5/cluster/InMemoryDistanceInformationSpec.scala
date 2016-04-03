@@ -1,4 +1,6 @@
-package com.noackexpected.algorithm5
+package com.noackexpected.algorithm5.cluster
+
+import org.scalatest.{Matchers, FlatSpec}
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,14 +17,11 @@ package com.noackexpected.algorithm5
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package object cluster {
-  type ItemID = String
+class InMemoryDistanceInformationSpec extends FlatSpec with Matchers {
 
-  type DataSet = Set[Item]
-  type Cluster = Set[ItemID]
+  "get()" should "return 1.0 (maximally different) when no data is available for from/to item combination" in {
+    def target = new InMemoryDistanceInformation()
 
-  type NeighborList = List[ItemID]
-  type NeighborLists = Map[ItemID, NeighborList]
-
-  type Distance = (ItemID, ItemID, Float)
+    target.get("A", "B") should be (1.0)
+  }
 }

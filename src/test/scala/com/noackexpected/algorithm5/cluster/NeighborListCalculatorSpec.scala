@@ -1,4 +1,6 @@
-package com.noackexpected.algorithm5
+package com.noackexpected.algorithm5.cluster
+
+import org.scalatest.{Matchers, FlatSpec}
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,14 +17,11 @@ package com.noackexpected.algorithm5
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package object cluster {
-  type ItemID = String
+class NeighborListCalculatorSpec extends FlatSpec with Matchers {
 
-  type DataSet = Set[Item]
-  type Cluster = Set[ItemID]
+  ignore should "return an empty neighbor list for an item if there is no distance information" in {
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation())
 
-  type NeighborList = List[ItemID]
-  type NeighborLists = Map[ItemID, NeighborList]
-
-  type Distance = (ItemID, ItemID, Float)
+    fail("NYI")
+  }
 }
