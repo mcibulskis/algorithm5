@@ -22,8 +22,11 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
   }
 
   private def rCluster(neighborInformation: NeighborInformation, itemsToProcess: Set[ItemID], currentClusters: Set[Cluster]): Set[Cluster] = {
-    if (itemsToProcess.isEmpty) currentClusters
-    else rCluster(neighborInformation, itemsToProcess.tail, updateClusters(currentClusters, itemsToProcess.head, neighborInformation))
+    if (itemsToProcess.isEmpty) {
+      currentClusters
+    } else {
+      rCluster(neighborInformation, itemsToProcess.tail, updateClusters(currentClusters, itemsToProcess.head, neighborInformation))
+    }
   }
 
   private def updateClusters(currentClusters: Set[Cluster], currentItem: ItemID, neighborInformation: NeighborInformation): Set[Cluster] = {
@@ -47,7 +50,8 @@ class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeig
     def neighborsToExamine1 = item1._2.slice(0, numNearestNeighborsToExamine)
     def neighborsToExamine2 = item2._2.slice(0, numNearestNeighborsToExamine)
 
-    itemsAreNeighborsOfEachOther(itemID1, neighborsToExamine1, itemID2, neighborsToExamine2) && itemsHaveSufficientNeighborsInCommon(neighborsToExamine1, neighborsToExamine2, numRequiredCommonNeighbors - 1)
+    itemsAreNeighborsOfEachOther(itemID1, neighborsToExamine1, itemID2, neighborsToExamine2) &&
+      itemsHaveSufficientNeighborsInCommon(neighborsToExamine1, neighborsToExamine2, numRequiredCommonNeighbors - 1)
   }
 
   private def itemsAreNeighborsOfEachOther(itemID1: ItemID, neighborsToExamine1: NeighborList, itemID2: ItemID, neighborsToExamine2: NeighborList): Boolean = {

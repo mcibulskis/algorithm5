@@ -1,6 +1,17 @@
 apply plugin: 'scala'
+apply plugin: 'scalaStyle'
 
-defaultTasks 'build'
+defaultTasks 'build', 'scalastyle'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:0.8.2"
+    }
+}
 
 repositories {
     mavenCentral()
@@ -11,6 +22,16 @@ dependencies {
 
     testCompile 'org.scalatest:scalatest_2.11:2.2.6'
     testRuntime 'org.pegdown:pegdown:1.1.0'
+}
+
+scalaStyle {
+    configLocation = "gradle/plugin/config/scalastyle/scalastyle_src_config.xml"
+// Temporarily disable testConfigLocation, as there is a bug in the scalastyle plugin
+//    testConfigLocation = "gradle/plugin/config/scalastyle/scalastyle_spec_config.xml"
+    includeTestSourceDirectory = false
+    source = "src/main/scala"
+    testSource = "src/test/scala"
+    verbose = false
 }
 
 task spec(dependsOn: ['testClasses'], type: JavaExec) {
