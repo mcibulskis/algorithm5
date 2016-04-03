@@ -28,4 +28,8 @@ class InMemoryDistanceInformation(distances: Set[Distance]) extends DistanceInfo
   private def matchesFromTo(target: (ItemID, ItemID), current: (ItemID, ItemID)): Boolean = {
     (target._1 == current._1) && (target._2 == current._2)
   }
+
+  override def findAll(forItem: ItemID): Set[(ItemID, ItemID, Double)] = {
+    Set()
+  }
 }
