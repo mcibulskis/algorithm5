@@ -43,4 +43,10 @@ class InMemoryDistanceInformationSpec extends FlatSpec with Matchers {
 
     target.findAll("A") should be (Set())
   }
+
+  it should "return distance information with the target item as the from aspect of the distances" in {
+    def target = new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("A", "C", 0.75)))
+
+    target.findAll("A") should be(Set(("A", "B", 0.25), ("A", "C", 0.75)))
+  }
 }
