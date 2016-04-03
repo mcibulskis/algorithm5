@@ -55,4 +55,11 @@ class InMemoryDistanceInformationSpec extends FlatSpec with Matchers {
 
     target.findAll("A") should be (Set(("B", "A", 0.25), ("C", "A", 0.75)))
   }
+
+
+  "items" should "return an empty set when no data is available" in {
+    def target = new InMemoryDistanceInformation(Set())
+
+    target.items should be (Set())
+  }
 }

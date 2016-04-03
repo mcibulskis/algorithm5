@@ -18,4 +18,5 @@ package com.noackexpected.algorithm5.cluster
 trait DistanceInformation {
   def find(fromItem: ItemID, toItem: ItemID): Double
   def findAll(forItem: ItemID): Set[Distance]
+  def items: Set[ItemID]
 }
