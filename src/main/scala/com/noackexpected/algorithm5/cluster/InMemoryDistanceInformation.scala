@@ -30,6 +30,6 @@ class InMemoryDistanceInformation(distances: Set[Distance]) extends DistanceInfo
   }
 
   override def findAll(forItem: ItemID): Set[(ItemID, ItemID, Double)] = {
-    distances.filter((distance: Distance) => forItem == distance._1)
+    distances.filter((distance: Distance) => (forItem == distance._1) || (forItem == distance._2))
   }
 }
