@@ -33,5 +33,5 @@ class InMemoryDistanceInformation(distances: Set[Distance]) extends DistanceInfo
     distances.filter((distance: Distance) => (forItem == distance._1) || (forItem == distance._2))
   }
 
-  override def items: Set[ItemID] = Set()
+  override def items: Set[ItemID] = distances.foldLeft(Set[ItemID]())((aggregate, distance) => aggregate ++ Set(distance._1))
 }
