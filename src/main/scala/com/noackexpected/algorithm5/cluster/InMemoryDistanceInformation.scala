@@ -15,6 +15,16 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class InMemoryDistanceInformation extends DistanceInformation {
-  override def get(fromItem: ItemID, toItem: ItemID): Double = 1.0
+class InMemoryDistanceInformation(distances: Set[Distance]) extends DistanceInformation {
+
+  override def get(fromItem: ItemID, toItem: ItemID): Double = {
+    def target = (fromItem, toItem)
+    distances.find((distance: Distance) => {
+      matchesFromTo(target, (distance._1, distance._2)) || matchesFromTo(target, (distance._2, distance._1))
+    }).getOrElse((fromItem, toItem, 1.0))._3
+  }
+
+  private def matchesFromTo(target: (ItemID, ItemID), current: (ItemID, ItemID)): Boolean = {
+    (target._1 == current._1) && (target._2 == current._2)
+  }
 }

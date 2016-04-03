@@ -20,8 +20,20 @@ import org.scalatest.{Matchers, FlatSpec}
 class InMemoryDistanceInformationSpec extends FlatSpec with Matchers {
 
   "get()" should "return 1.0 (maximally different) when no data is available for from/to item combination" in {
-    def target = new InMemoryDistanceInformation()
+    def target = new InMemoryDistanceInformation(Set(("C", "D", 0.125)))
 
     target.get("A", "B") should be (1.0)
+  }
+
+  it should "return the actual distance when data is available for from/to combination" in {
+    def target = new InMemoryDistanceInformation(Set(("C", "D", 0.125), ("A", "B", 0.25)))
+
+    target.get("A", "B") should be (0.25)
+  }
+
+  it should "return the actual distance when data is available for to/from combination" in {
+    def target = new InMemoryDistanceInformation(Set(("C", "D", 0.125), ("B", "A", 0.25)))
+
+    target.get("A", "B") should be (0.25)
   }
 }

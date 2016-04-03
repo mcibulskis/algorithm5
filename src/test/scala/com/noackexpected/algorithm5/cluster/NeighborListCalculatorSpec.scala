@@ -20,7 +20,7 @@ import org.scalatest.{Matchers, FlatSpec}
 class NeighborListCalculatorSpec extends FlatSpec with Matchers {
 
   ignore should "return an empty neighbor list for an item if there is no distance information" in {
-    def target = new NeighborListCalculator(new InMemoryDistanceInformation())
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set()))
 
     fail("NYI")
   }
