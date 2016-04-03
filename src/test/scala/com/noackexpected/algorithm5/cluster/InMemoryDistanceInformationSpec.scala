@@ -69,4 +69,11 @@ class InMemoryDistanceInformationSpec extends FlatSpec with Matchers {
     target.items should contain ("A")
     target.items should contain ("C")
   }
+
+  it should "include all of the items that are in the to aspect of the distances" in {
+    def target = new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("C", "D", 0.125)))
+
+    target.items should contain ("B")
+    target.items should contain ("D")
+  }
 }
