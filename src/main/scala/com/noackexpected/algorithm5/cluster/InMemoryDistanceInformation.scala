@@ -17,7 +17,7 @@ package com.noackexpected.algorithm5.cluster
  */
 class InMemoryDistanceInformation(distances: Set[Distance]) extends DistanceInformation {
 
-  override def get(fromItem: ItemID, toItem: ItemID): Double = {
+  override def find(fromItem: ItemID, toItem: ItemID): Double = {
     distances.find((distance: Distance) => directionAgnosticMatchesFromTo((fromItem, toItem), (distance._1, distance._2))).getOrElse((fromItem, toItem, 1.0))._3
   }
 

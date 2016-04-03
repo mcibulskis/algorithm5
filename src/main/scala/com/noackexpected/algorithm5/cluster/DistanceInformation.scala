@@ -16,5 +16,5 @@ package com.noackexpected.algorithm5.cluster
  * limitations under the License.
  */
 trait DistanceInformation {
-  def get(fromItem: ItemID, toItem: ItemID): Double
+  def find(fromItem: ItemID, toItem: ItemID): Double
 }
