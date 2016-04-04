@@ -15,7 +15,13 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class JPClustering(numNearestNeighborsToExamine: Int = 20, numRequiredCommonNeighbors: Int = 15) {
+object JPClustering {
+  val DefaultNumNearestNeighborsToExamine = 20
+  val DefaultNumRequiredCommonNeighbors = 15
+}
+
+class JPClustering(numNearestNeighborsToExamine: Int = JPClustering.DefaultNumNearestNeighborsToExamine,
+                   numRequiredCommonNeighbors: Int = JPClustering.DefaultNumRequiredCommonNeighbors) {
 
   def cluster(neighborInformation: NeighborInformation): Set[Cluster] = {
     rCluster(neighborInformation, neighborInformation.items, Set[Cluster]())
