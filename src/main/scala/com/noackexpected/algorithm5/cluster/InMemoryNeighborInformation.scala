@@ -30,6 +30,6 @@ class InMemoryNeighborInformation(neighborLists: InMemoryNeighborInformation.Nei
   override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
 
   override def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation = {
-    this
+    new InMemoryNeighborInformation(neighborLists + itemNeighbors)
   }
 }

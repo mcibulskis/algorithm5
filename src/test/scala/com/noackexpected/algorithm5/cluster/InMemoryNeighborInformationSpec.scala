@@ -79,4 +79,11 @@ class InMemoryNeighborInformationSpec extends FlatSpec with Matchers {
     neighborInformation.neighborsOf("A") should be (List("B"))
     neighborInformation.neighborsOf("B") should be (List("A"))
   }
+
+  it should "return a new InMemoryNeighborInformation with the specified NeighborList included" in {
+    def target = new InMemoryNeighborInformation(Map(("A", List("B")), ("B", List("A"))))
+
+    def neighborInformation = target + ("C", List("A"))
+    neighborInformation.neighborsOf("C") should be (List("A"))
+  }
 }
