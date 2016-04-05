@@ -30,4 +30,10 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
 
     target.calculate("A") should be (List("B"))
   }
+
+  it should "include neighbors of the target when the target is in the to aspect of the distance information" in {
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("B", "A", 0.25))))
+
+    target.calculate("A") should be (List("B"))
+  }
 }
