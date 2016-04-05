@@ -20,4 +20,5 @@ trait NeighborInformation {
   def size: Int
   def items: Set[ItemID]
   def neighborsOf(itemID: ItemID): NeighborList
+  def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation
 }

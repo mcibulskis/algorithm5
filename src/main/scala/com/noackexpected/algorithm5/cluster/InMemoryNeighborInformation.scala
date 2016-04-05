@@ -28,4 +28,8 @@ class InMemoryNeighborInformation(neighborLists: InMemoryNeighborInformation.Nei
   override lazy val items: Set[ItemID] = neighborLists.keySet
 
   override def neighborsOf(itemID: ItemID): NeighborList = neighborLists.getOrElse(itemID, List())
+
+  override def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation = {
+    this
+  }
 }
