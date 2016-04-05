@@ -29,6 +29,6 @@ class NeighborListCalculator(distanceInformation: DistanceInformation, numNeighb
   }
 
   def calculateAll: NeighborInformation = {
-    new InMemoryNeighborInformation(distanceInformation.items.map(item => (item, List[ItemID]())).toMap)
+    new InMemoryNeighborInformation(distanceInformation.items.map(item => (item, calculate(item))).toMap)
   }
 }

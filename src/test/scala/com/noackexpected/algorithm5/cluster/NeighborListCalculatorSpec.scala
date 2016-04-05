@@ -68,4 +68,15 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
 
     target.calculateAll.items should be (Set("A", "B", "C", "D", "E"))
   }
+
+  it should "invoke calculate() for each item for which we have distance information" in {
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("B", "C", 0.25), ("A", "B", 0.125)))) {
+      override def calculate(forItemID: ItemID): NeighborList = List(s"invoked calculate(${forItemID})")
+    }
+
+    def neighborInformation = target.calculateAll
+    neighborInformation.neighborsOf("A") should be (List("invoked calculate(A)"))
+    neighborInformation.neighborsOf("B") should be (List("invoked calculate(B)"))
+    neighborInformation.neighborsOf("C") should be (List("invoked calculate(C)"))
+  }
 }
