@@ -15,7 +15,11 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class NeighborListCalculator(distanceInformation: DistanceInformation, numNeighbors: Int = 20) {
+object NeighborListCalculator {
+  val DefaultNumNeighbors = 20
+}
+
+class NeighborListCalculator(distanceInformation: DistanceInformation, numNeighbors: Int = NeighborListCalculator.DefaultNumNeighbors) {
 
   def calculate(forItemID: ItemID): NeighborList = {
     distanceInformation.findAll(forItemID).toSeq.sortBy(_._3).slice(0,numNeighbors).map({
