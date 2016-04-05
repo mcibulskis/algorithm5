@@ -18,6 +18,6 @@ package com.noackexpected.algorithm5.cluster
 class NeighborListCalculator(distanceInformation: DistanceInformation) {
 
   def calculate(forItemID: ItemID): NeighborList = {
-    List()
+    distanceInformation.findAll(forItemID).map(distance => distance._2).toList
   }
 }
