@@ -48,4 +48,10 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
 
     target.calculate("A") should be (List("B"))
   }
+
+  it should "only include the closest n neighbors" in {
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("A", "E", 0.75), ("C", "A", 0.125), ("D", "A", 0.5))), 3)
+
+    target.calculate("A") should be (List("C", "B", "D"))
+  }
 }
