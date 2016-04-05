@@ -22,7 +22,6 @@ package object cluster {
   type Cluster = Set[ItemID]
 
   type NeighborList = List[ItemID]
-  type NeighborLists = Map[ItemID, NeighborList]
 
   type Distance = (ItemID, ItemID, Double)
 }

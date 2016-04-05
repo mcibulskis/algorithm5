@@ -15,7 +15,11 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class InMemoryNeighborInformation(neighborLists: NeighborLists) extends NeighborInformation {
+object InMemoryNeighborInformation {
+  type NeighborLists = Map[ItemID, NeighborList]
+}
+
+class InMemoryNeighborInformation(neighborLists: InMemoryNeighborInformation.NeighborLists) extends NeighborInformation {
 
   override lazy val isEmpty: Boolean = neighborLists.isEmpty
 
