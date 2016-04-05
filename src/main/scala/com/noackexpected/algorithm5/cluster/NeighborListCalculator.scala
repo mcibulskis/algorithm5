@@ -27,4 +27,8 @@ class NeighborListCalculator(distanceInformation: DistanceInformation, numNeighb
       case (from, _, _) => from
     }).toList
   }
+
+  def calculateAll: NeighborInformation = {
+    new InMemoryNeighborInformation(Map())
+  }
 }
