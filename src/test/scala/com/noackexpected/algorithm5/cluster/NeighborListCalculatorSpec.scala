@@ -56,9 +56,16 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
   }
 
 
+
   "calculateAll" should "return an empty neighbor information if there is no distance information" in {
     def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set()))
 
     target.calculateAll.isEmpty should be (true)
+  }
+
+  it should "include neighbor information for all items for which we have distance information" in {
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("A", "E", 0.75), ("C", "A", 0.125), ("D", "A", 0.5))))
+
+    target.calculateAll.items should be (Set("A", "B", "C", "D", "E"))
   }
 }
