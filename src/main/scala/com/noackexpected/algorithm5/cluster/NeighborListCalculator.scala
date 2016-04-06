@@ -28,7 +28,14 @@ class NeighborListCalculator(distanceInformation: DistanceInformation, numNeighb
     }).toList
   }
 
-  def calculateAll: NeighborInformation = {
-    new InMemoryNeighborInformation(distanceInformation.items.map(item => (item, calculate(item))).toMap)
+  def calculateAll(neighborInformation: NeighborInformation): NeighborInformation = {
+    rCalculateAll(neighborInformation, distanceInformation.items.toList)
+  }
+
+  def rCalculateAll(neighborInformation: NeighborInformation, itemsToProcess: List[ItemID]): NeighborInformation = {
+    itemsToProcess match {
+      case item :: tail => rCalculateAll(neighborInformation + (item, calculate(item)), tail)
+      case _ => neighborInformation
+    }
   }
 }

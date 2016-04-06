@@ -60,13 +60,13 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
   "calculateAll" should "return an empty neighbor information if there is no distance information" in {
     def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set()))
 
-    target.calculateAll.isEmpty should be (true)
+    target.calculateAll(new InMemoryNeighborInformation(Map())).isEmpty should be (true)
   }
 
   it should "include neighbor information for all items for which we have distance information" in {
     def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("A", "E", 0.75), ("C", "A", 0.125), ("D", "A", 0.5))))
 
-    target.calculateAll.items should be (Set("A", "B", "C", "D", "E"))
+    target.calculateAll(new InMemoryNeighborInformation(Map())).items should be (Set("A", "B", "C", "D", "E"))
   }
 
   it should "invoke calculate() for each item for which we have distance information" in {
@@ -74,9 +74,20 @@ class NeighborListCalculatorSpec extends FlatSpec with Matchers {
       override def calculate(forItemID: ItemID): NeighborList = List(s"invoked calculate(${forItemID})")
     }
 
-    def neighborInformation = target.calculateAll
+    def neighborInformation = target.calculateAll(new InMemoryNeighborInformation(Map()))
     neighborInformation.neighborsOf("A") should be (List("invoked calculate(A)"))
     neighborInformation.neighborsOf("B") should be (List("invoked calculate(B)"))
     neighborInformation.neighborsOf("C") should be (List("invoked calculate(C)"))
+  }
+
+  it should "return an instance of the type of NeighborInformation that was provided" in {
+    class StubNeighborInformation(neighborLists: InMemoryNeighborInformation.NeighborLists) extends InMemoryNeighborInformation(neighborLists) {
+      override def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation = {
+        new StubNeighborInformation(neighborLists + itemNeighbors)
+      }
+    }
+    def target = new NeighborListCalculator(new InMemoryDistanceInformation(Set(("A", "B", 0.25), ("A", "E", 0.75), ("C", "A", 0.125), ("D", "A", 0.5))))
+
+    target.calculateAll(new StubNeighborInformation(Map())).isInstanceOf[StubNeighborInformation] should be (true)
   }
 }
