@@ -1,4 +1,7 @@
-package com.noackexpected.algorithm5.cluster
+package com.noackexpected.algorithm5.neighbor
+
+import com.noackexpected.algorithm5.distance.DistanceInformation
+import com.noackexpected.algorithm5.item.ItemID
 
 /**
  * Copyright 2016 Michael J. Cibulskis

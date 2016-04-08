@@ -1,6 +1,4 @@
-package com.noackexpected.algorithm5
-
-import com.noackexpected.algorithm5.item.{ItemID, Item}
+package com.noackexpected.algorithm5.distance
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -17,7 +15,6 @@ import com.noackexpected.algorithm5.item.{ItemID, Item}
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package object cluster {
-  type DataSet = Set[Item]
-  type Cluster = Set[ItemID]
+trait DistanceFunction[T] {
+  def distanceFrom(featureA: T, featureB: T): Double
 }

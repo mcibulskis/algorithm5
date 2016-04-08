@@ -1,4 +1,6 @@
-package com.noackexpected.algorithm5.cluster
+package com.noackexpected.algorithm5.distance
+
+import com.noackexpected.algorithm5.item.ItemID
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,6 +17,8 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-trait Item {
-  def getID(): ItemID
+trait DistanceInformation {
+  def find(fromItem: ItemID, toItem: ItemID): Double
+  def findAll(forItem: ItemID): Set[Distance]
+  def items: Set[ItemID]
 }

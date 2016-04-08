@@ -1,6 +1,6 @@
-package com.noackexpected.algorithm5
+package com.noackexpected.algorithm5.neighbor
 
-import com.noackexpected.algorithm5.item.{ItemID, Item}
+import com.noackexpected.algorithm5.item.ItemID
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -17,7 +17,10 @@ import com.noackexpected.algorithm5.item.{ItemID, Item}
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package object cluster {
-  type DataSet = Set[Item]
-  type Cluster = Set[ItemID]
+trait NeighborInformation {
+  def isEmpty: Boolean
+  def size: Int
+  def items: Set[ItemID]
+  def neighborsOf(itemID: ItemID): NeighborList
+  def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation // scalastyle:ignore method.name
 }

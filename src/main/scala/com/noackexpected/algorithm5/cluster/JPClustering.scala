@@ -1,5 +1,8 @@
 package com.noackexpected.algorithm5.cluster
 
+import com.noackexpected.algorithm5.item.ItemID
+import com.noackexpected.algorithm5.neighbor.{NeighborList, NeighborInformation}
+
 /**
  * Copyright 2016 Michael J. Cibulskis
  *

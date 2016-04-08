@@ -1,6 +1,6 @@
-package com.noackexpected.algorithm5.cluster
+package com.noackexpected.algorithm5.distance
 
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.{FlatSpec, Matchers}
 
 /**
  * Copyright 2016 Michael J. Cibulskis

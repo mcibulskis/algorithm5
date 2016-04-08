@@ -1,4 +1,4 @@
-package com.noackexpected.algorithm5.cluster
+package com.noackexpected.algorithm5
 
 /**
  * Copyright 2016 Michael J. Cibulskis
@@ -15,10 +15,6 @@ package com.noackexpected.algorithm5.cluster
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-trait NeighborInformation {
-  def isEmpty: Boolean
-  def size: Int
-  def items: Set[ItemID]
-  def neighborsOf(itemID: ItemID): NeighborList
-  def +(itemNeighbors: (ItemID, NeighborList)): NeighborInformation // scalastyle:ignore method.name
+package object item {
+  type ItemID = String
 }
